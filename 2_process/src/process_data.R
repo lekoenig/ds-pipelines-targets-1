@@ -1,17 +1,17 @@
 
-process_data <- function(input_file_path,save_path){
+process_data <- function(input_file_path,save_path,plot_color,plot_shape){
   
    # Prepare the data for plotting:
   eval_data <- readr::read_csv(input_file_path, col_types = 'iccd') %>%
     filter(str_detect(exper_id, 'similar_[0-9]+')) %>%
     mutate(col = case_when(
-      model_type == 'pb' ~ '#1b9e77',
-      model_type == 'dl' ~'#d95f02',
-      model_type == 'pgdl' ~ '#7570b3'
+      model_type == 'pb' ~ plot_color[1],
+      model_type == 'dl' ~ plot_color[2],
+      model_type == 'pgdl' ~ plot_color[3]
     ), pch = case_when(
-      model_type == 'pb' ~ 21,
-      model_type == 'dl' ~ 22,
-      model_type == 'pgdl' ~ 23
+      model_type == 'pb' ~ plot_shape[1],
+      model_type == 'dl' ~ plot_shape[2],
+      model_type == 'pgdl' ~ plot_shape[3]
     ), n_prof = as.numeric(str_extract(exper_id, '[0-9]+')))
   
   # Save the processed data:
