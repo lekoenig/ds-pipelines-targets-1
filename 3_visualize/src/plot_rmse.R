@@ -1,14 +1,11 @@
 
-plot_rmse <- function(data){
-  
-
-  save_path <- "./3_visualize/out"
+plot_rmse <- function(data,save_path,plot_height,plot_width,x_min,x_max,y_min,y_max){
   
   # Create a plot
-  png(file = file.path(save_path, 'figure_1.png'), width = 8, height = 10, res = 200, units = 'in')
+  png(file = file.path(save_path, 'figure_1.png'), width = plot_width, height = plot_height, res = 200, units = 'in')
   par(omi = c(0,0,0.05,0.05), mai = c(1,1,0,0), las = 1, mgp = c(2,.5,0), cex = 1.5)
   
-  plot(NA, NA, xlim = c(2, 1000), ylim = c(4.7, 0.75),
+  plot(NA, NA, xlim = c(x_min, x_max), ylim = c(y_min, y_max),
        ylab = "Test RMSE (°C)", xlab = "Training temperature profiles (#)", log = 'x', axes = FALSE)
   
   n_profs <- c(2, 10, 50, 100, 500, 980)

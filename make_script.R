@@ -21,4 +21,5 @@ proc_data <- process_data(input_file_path = file.path("./1_fetch/out", 'model_RM
 save_diagnostics(data = proc_data,save_path = "./2_process/out")
 
 # Create a plot
-plot_rmse(data)
+plot_rmse(data=proc_data, save_path = "./3_visualize/out",plot_width=8,plot_height=10,
+          x_min=2,x_max=1000,y_min=4.7,y_max=0.75)
