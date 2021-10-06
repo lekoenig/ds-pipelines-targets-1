@@ -1,10 +1,8 @@
 
-process_data <- function(){
+process_data <- function(input_file_path,save_path){
   
-  save_path <- "./2_process/out"
-  
-  # Prepare the data for plotting:
-  eval_data <- readr::read_csv(file.path("./1_fetch/out", 'model_RMSEs.csv'), col_types = 'iccd') %>%
+   # Prepare the data for plotting:
+  eval_data <- readr::read_csv(input_file_path, col_types = 'iccd') %>%
     filter(str_detect(exper_id, 'similar_[0-9]+')) %>%
     mutate(col = case_when(
       model_type == 'pb' ~ '#1b9e77',
