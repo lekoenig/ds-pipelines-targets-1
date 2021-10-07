@@ -9,7 +9,8 @@ source("./2_process/src/process_data.R")
 source("./3_visualize/src/plot_rmse.R")
 
 # Get the data from ScienceBase
-fetch_data(save_path = "./1_fetch/out",output_file_name <- "model_RMSEs.csv")
+fetch_data(save_path = "./1_fetch/out",
+           output_file_name <- "model_RMSEs.csv")
 
 # Prepare data for plotting
 proc_data <- process_data(input_file_path = file.path("./1_fetch/out", 'model_RMSEs.csv'),
@@ -18,8 +19,11 @@ proc_data <- process_data(input_file_path = file.path("./1_fetch/out", 'model_RM
                      plot_shape = c(21,22,23))
 
 # save model diagnostics
-save_diagnostics(data = proc_data,save_path = "./2_process/out")
+save_diagnostics(data = proc_data,
+                 save_path = "./2_process/out")
 
 # Create a plot
-plot_rmse(data=proc_data, save_path = "./3_visualize/out",plot_width=8,plot_height=10,
+plot_rmse(data=proc_data, 
+          save_path = "./3_visualize/out",
+          plot_width=8,plot_height=10,
           x_min=2,x_max=1000,y_min=4.7,y_max=0.75)
