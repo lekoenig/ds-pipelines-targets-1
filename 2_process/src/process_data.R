@@ -10,9 +10,9 @@ filter_data <- function(data,model,experiment){
 
 
 # Function to prepare the data for plotting:
-process_data <- function(input_file_path,save_path,plot_color,plot_shape){
+process_data <- function(input_file_path,plot_color,plot_shape){
   
-   # Prepare the data for plotting:
+  # Prepare the data for plotting:
   eval_data <- readr::read_csv(input_file_path, col_types = 'iccd') %>%
     filter(str_detect(exper_id, 'similar_[0-9]+')) %>%
     mutate(col = case_when(
@@ -25,16 +25,13 @@ process_data <- function(input_file_path,save_path,plot_color,plot_shape){
       model_type == 'pgdl' ~ plot_shape[3]
     ), n_prof = as.numeric(str_extract(exper_id, '[0-9]+')))
   
-  # Save the processed data:
-  readr::write_csv(eval_data, file = file.path(save_path, 'model_summary_results.csv'))
-  
   return(eval_data)
   
 }
 
 
 # Function to save the model diagnostics
-save_diagnostics <- function(data,save_path){
+save_diagnostics <- function(data,save_path,file_name){
   
   render_data <- list(pgdl_980mean = filter_data(data, model = "pgdl",experiment = "similar_980"),
                       dl_980mean =  filter_data(data, model = 'dl', experiment = "similar_980"),
@@ -51,8 +48,17 @@ save_diagnostics <- function(data,save_path){
   ({{dl_500mean}} and {{pb_500mean}}°C, respectively) or more, but worse than PB when training was reduced to 100 profiles ({{dl_100mean}} and {{pb_100mean}}°C respectively) or fewer.
   The PGDL prediction accuracy was more robust compared to PB when only two profiles were provided for training ({{pgdl_2mean}} and {{pb_2mean}}°C, respectively). '
   
-  whisker.render(template_1 %>% str_remove_all('\n') %>% str_replace_all('  ', ' '), render_data ) %>% cat(file = file.path(save_path, 'model_diagnostic_text.txt'))
+  whisker.render(template_1 %>% str_remove_all('\n') %>% str_replace_all('  ', ' '), render_data ) %>% cat(file = file.path(save_path, file_name))
+  
+  return(file.path(save_path,file_name))
   
   
+}
+
+# Save the processed data:
+save_processed_data <- function(data,save_path,file_name){
+  
+  readr::write_csv(data, file = file.path(save_path, file_name),append=FALSE)
+  return(file.path(save_path, file_name))
   
 }

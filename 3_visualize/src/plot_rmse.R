@@ -1,8 +1,9 @@
 
-plot_rmse <- function(data,save_path,plot_height,plot_width,x_min,x_max,y_min,y_max){
+# Plot model diagnostics:
+plot_rmse <- function(data,save_path,plot_name,plot_height,plot_width,x_min,x_max,y_min,y_max){
   
   # Create a plot
-  png(file = file.path(save_path, 'figure_1.png'), width = plot_width, height = plot_height, res = 200, units = 'in')
+  png(file = file.path(save_path, plot_name), width = plot_width, height = plot_height, res = 200, units = 'in')
   par(omi = c(0,0,0.05,0.05), mai = c(1,1,0,0), las = 1, mgp = c(2,.5,0), cex = 1.5)
   
   plot(NA, NA, xlim = c(x_min, x_max), ylim = c(y_min, y_max),
@@ -44,5 +45,6 @@ plot_rmse <- function(data,save_path,plot_height,plot_width,x_min,x_max,y_min,y_
   
   dev.off()
   
+  return(file.path(save_path,plot_name))
   
 }
