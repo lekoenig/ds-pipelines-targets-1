@@ -20,7 +20,7 @@ filter_data <- function(data,model,experiment){
 
 
 # Function to prepare the data for plotting:
-process_data <- function(input_file_path,save_path,plot_color,plot_shape){
+process_data <- function(input_file_path,plot_color,plot_shape){
   
   # Prepare the data for plotting:
   eval_data <- readr::read_csv(input_file_path, col_types = 'iccd') %>%

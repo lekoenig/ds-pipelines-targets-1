@@ -12,7 +12,7 @@ list(
   # Prepare the data for plotting
   tar_target(
     eval_data,
-    process_data(input_file_path = model_RMSEs_csv,save_path = "2_process/out/",
+    process_data(input_file_path = model_RMSEs_csv,
                  plot_color = c('#1b9e77','#d95f02','#7570b3'),
                  plot_shape = c(21,22,23)),
   ),
